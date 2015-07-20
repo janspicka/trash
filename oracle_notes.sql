@@ -47,6 +47,14 @@ select ename, lpad(sal, 10,'*') as plat from emp;
 select INITCAP(ename), LENGTH(ename) from EMP;
 select ename as "Jmeno", to_char(hiredate,'DD-MON-YY') as "Datum nastupu", initcap(to_char(hiredate,'DAY'))  from emp;
 select ename as "Jmeno", nvl(to_char(COMM),'nema provize') as "Provize" from emp;
+select ename, job as pozice, decode(job, 
+  'PRESIDENT', 'A',
+  'MANAGER', 'B',
+  'ANALYST', 'C',
+  'SALESMAN', 'D',
+  'CLERK', 'E', 
+  'X') as stupen from emp;
+
 
 
 
