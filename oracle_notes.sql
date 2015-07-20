@@ -5,10 +5,12 @@
 - % je nula nebo vice znaku, _ je prave jeden znak, napr '_A%'
 - nebo '_A%!%' escape '!' kde escape symbol muze byt cokoli
 - lze pouzit vyraz NOT pro negaci vyrazu: SELECT * FROM table WHERE NOT col <> "value"
-
+- existuje neco jako substitucni promenna &x &&x, ale obecne to nefunguje
+- formatovani datumu http://ss64.com/ora/syntax-fmt.html 
 
 select * from DEPT;
 select * from EMP;
+select * from SALGRADE;
 select distinct job from emp;
 select EMPNO as "Cislo", ENAME as "Zamestnanec", job as "Pozice", HIREDATE as "Datum nastupu" from emp;
 select ENAME ||', '|| job as "Zamestnanec, pozice" from emp;
@@ -34,6 +36,19 @@ select sysdate from dual;
 select empno, ename, sal, round(sal*1.15) as novy_plat from EMP;
 select empno, ename, sal, round(sal*1.15) as novy_plat from EMP;
 select empno, ename, sal, novy_plat, novy_plat-sal as pridano_o from (select empno, ename, sal, round(sal*1.15) as novy_plat from EMP);
+select ename, job, hiredate from emp where hiredate between '20-02-81' and '01-06-81';
+select ename, hiredate from emp where hiredate like '%82';
+select * from dual;
+alter session set nls_language = 'american';
+
+select ename, hiredate, to_char(next_day(add_months(hiredate,6),1), 'fmDAY, DD. MONTH YYYY') as review from emp;
+select ename || ' ma plat ' || to_char(sal, 'fm$9,999') || ', ale chtel by ' || to_char(sal*3, 'fm$9,999') as "Zamestnancuv sen" from EMP; 
+select ename, lpad(sal, 10,'*') as plat from emp;
+select INITCAP(ename), LENGTH(ename) from EMP;
+select ename as "Jmeno", to_char(hiredate,'DD-MON-YY') as "Datum nastupu", initcap(to_char(hiredate,'DAY'))  from emp;
+select ename as "Jmeno", nvl(to_char(COMM),'nema provize') as "Provize" from emp;
+
+
 
 
 
