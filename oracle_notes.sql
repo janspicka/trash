@@ -66,7 +66,19 @@ select ename, job as pozice,
 from emp;
 
 -- JOIN 
-
+select ename, emp.deptno, dname from emp left join DEPT on emp.deptno = DEPT.DEPTNO;
+select distinct job from emp left join DEPT on emp.deptno = DEPT.DEPTNO where dname = 'SALES';
+select ename, dname, loc, comm from emp left join DEPT on emp.deptno = DEPT.DEPTNO where comm is not null and comm > 0 order by comm desc;
+select ename, dname from emp left join DEPT on emp.deptno = DEPT.DEPTNO where ename like '%A%';
+select ename, job, emp.deptno, dname from emp left join DEPT on emp.deptno = DEPT.DEPTNO where loc = 'DALLAS';
+select a.empno, a.ename, a.mgr as mgr_no, b.ENAME as mgr_name from emp a inner join emp b on a.mgr = b.empno;
+select a.empno, a.ename, a.mgr as mgr_no, b.ENAME as mgr_name from emp a left join emp b on a.mgr = b.empno;
+select a.deptno, a.ename, b.dname, c.ename
+  from emp a
+  left join dept b on a.DEPTNO = b.DEPTNO 
+  inner join emp c on a.deptno = c.deptno 
+  where a.ename <> c.ename
+  order by b.dname;
 
 
 
