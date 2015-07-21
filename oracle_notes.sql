@@ -124,8 +124,17 @@ left join dept on emp.DEPTNO = dept.DEPTNO
 group by dname, loc;
 
 -- vnorene dotazy? 
+select ename, hiredate from emp where hiredate > (select hiredate from emp where ename = 'BLAKE');
+select ename, to_char(hiredate, 'fmDD-MON-YYYY') from emp where deptno = (select deptno from emp where ename = 'BLAKE') and ename <> 'BLAKE';
+select empno, ename, sal from emp where sal > (select avg(sal) from emp);
 
+select empno, ename, sal, emp.deptno, dname from EMP 
+join dept on EMP.deptno = dept.DEPTNO where EMP.DEPTNO = (select distinct deptno from emp where ename like '%G%');  
 
+select ename, deptno, job from EMP where DEPTNO = (select distinct EMP.DEPTNO from EMP 
+join DEPT on EMP.DEPTNO = DEPT.DEPTNO where DEPT.LOC = 'DALLAS');
+
+select empno from emp where ename = 'KING' 
 
   
 
