@@ -141,6 +141,8 @@ select emp.EMPNO, emp.ename, sal, emp.deptno, dept.DNAME
 from emp join dept on emp.DEPTNO = dept.DEPTNO and emp.deptno = (select emp.DEPTNO from emp join dept on emp.DEPTNO = dept.DEPTNO where ename like '%G%') 
 where sal > (select avg(sal) from emp);
 
+
+--sub sub sub sub queries 
   select distinct e1.ename, e1.sal, e1.DEPTNO, dept.dname from emp e1
 join emp e2 on e1.sal = e2.SAL 
 join dept on e1.DEPTNO = dept.DEPTNO
