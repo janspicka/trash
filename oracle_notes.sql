@@ -109,6 +109,21 @@ left join DEPT d on e.DEPTNO = d.deptno
 where dname = 'ACCOUNTING';
 
 -- Agregacni fce 
+select max(sal), min(sal), round(avg(sal)), sum(sal) from emp;
+select dname, max(sal), min(sal), round(avg(sal)), sum(sal) from emp join dept on emp.DEPTNO = dept.DEPTNO group by dname;
+select job, count(empno) as pocet from emp group by job;
+select count(distinct mgr) from emp where mgr is not null;
+select max(sal)-min(sal) from emp;
+
+-- nasledujici dota dela neco trochu jineho, resp vraci i zamestnance/vedouci kteri nemaji vedouciho
+select e1.mgr as mgr, min(e2.sal), max(e2.sal) from EMP e1 left join EMP e2 on e1.mgr = e2.EMPNO group by e1.MGR having min(e2.sal)>1000; 
+select mgr, min(sal), max(sal) from emp where mgr is not null group by mgr having min(sal) > 1000;
+
+select dname, loc, count(empno), to_char(avg(sal),'9999.00') as avgsal from emp
+left join dept on emp.DEPTNO = dept.DEPTNO 
+group by dname, loc;
+
+-- vnorene dotazy? 
 
 
 
