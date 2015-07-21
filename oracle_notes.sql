@@ -134,9 +134,22 @@ join dept on EMP.deptno = dept.DEPTNO where EMP.DEPTNO = (select distinct deptno
 select ename, deptno, job from EMP where DEPTNO = (select distinct EMP.DEPTNO from EMP 
 join DEPT on EMP.DEPTNO = DEPT.DEPTNO where DEPT.LOC = 'DALLAS');
 
-select empno from emp where ename = 'KING' 
+select ename, sal from emp where mgr = (select empno from emp where ename = 'KING');
+select ename, job from EMP where deptno = (select distinct EMP.DEPTNO from EMP join DEPT on EMP.DEPTNO = DEPT.DEPTNO where DEPT.DNAME = 'SALES');
 
-  
+select emp.EMPNO, emp.ename, sal, emp.deptno, dept.DNAME
+from emp join dept on emp.DEPTNO = dept.DEPTNO and emp.deptno = (select emp.DEPTNO from emp join dept on emp.DEPTNO = dept.DEPTNO where ename like '%G%') 
+where sal > (select avg(sal) from emp);
+
+  select distinct e1.ename, e1.sal, e1.DEPTNO, dept.dname from emp e1
+join emp e2 on e1.sal = e2.SAL 
+join dept on e1.DEPTNO = dept.DEPTNO
+where e1.ename <> e2.ename and  e1.deptno = (select deptno from emp where COMM > 1000);
+
+select ename, hiredate, sal, comm from emp where (sal, nvl(comm,0)) = (select sal, nvl(comm,0) from emp where ename = 'FORD') and ename <> 'FORD';
+
+select ename, sal, deptno from emp 
+where deptno in (select deptno from emp group by deptno having avg(sal) < (select avg(sal) from emp)) and  sal > (select avg(sal) from emp)
 
 
 
