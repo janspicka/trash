@@ -6,7 +6,8 @@
 - nebo '_A%!%' escape '!' kde escape symbol muze byt cokoli
 - lze pouzit vyraz NOT pro negaci vyrazu: SELECT * FROM table WHERE NOT col <> "value"
 - existuje neco jako substitucni promenna &x &&x, ale obecne to nefunguje
-- formatovani datumu http://ss64.com/ora/syntax-fmt.html 
+- formatovani datumu http://ss64.com/ora/syntax-fmt.html
+- select * from table where col = '&value'; zaoamatuje si prikaz a "dale pro nej nebere pamet"
 
 -- UVOD
 select * from DEPT;
@@ -79,6 +80,39 @@ select a.deptno, a.ename, b.dname, c.ename
   inner join emp c on a.deptno = c.deptno 
   where a.ename <> c.ename
   order by b.dname;
+
+select a.deptno, b.dname, c.ename, a.ENAME
+  from emp a
+  left join dept b on a.DEPTNO = b.DEPTNO 
+  inner join emp c on a.deptno = c.deptno 
+  where a.ename <> c.ename
+  order by b.DNAME;
+  
+  select e.ename, e.JOB, d.DNAME, sal, grade
+  from emp e
+  left join dept d on e.DEPTNO = d.DEPTNO 
+  left join SALGRADE s on e.SAL between s.LOSAL and s.HISAL;
+  
+select e1.ename, e1.hiredate, e2.ENAME, e2.HIREDATE, e2.hiredate-e1.hiredate
+from emp e1 
+left join emp e2 on e1.MGR = e2.EMPNO
+where e1.HIREDATE < e2.HIREDATE;
+
+select e1.ENAME
+from emp e1 
+left join emp e2 on e1.MGR = e2.EMPNO
+where e2.ename = 'BLAKE';
+
+select e.ename
+from emp e
+left join DEPT d on e.DEPTNO = d.deptno
+where dname = 'ACCOUNTING';
+
+-- Agregacni fce 
+
+
+
+  
 
 
 
