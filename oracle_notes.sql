@@ -1,4 +1,4 @@
-- pomocna tabulka DUAL, pokud bych rad provedl: SELECT now() FROM DUAL ? 
+- pomocna tabulka DUAL, pokud bych rad provedl: SELECT to_date(sysdate, '...') FROM DUAL ? 
 - || spojuje hodnoty dvou tabulek, tedy: SELECT col1 || col2 AS alias
 - hodnoty se zapuisuji jako 'value', NE jako "value"
 - pokud chci polozit klauzuli where prikazu like pak mohu pouzit pattern viz nize
@@ -8,6 +8,8 @@
 - existuje neco jako substitucni promenna &x &&x, ale obecne to nefunguje
 - formatovani datumu http://ss64.com/ora/syntax-fmt.html
 - select * from table where col = '&value'; zaoamatuje si prikaz a "dale pro nej nebere pamet"
+- create [or replace] [force] view view_name as select ...
+
 
 -- UVOD
 select * from DEPT;
@@ -16,6 +18,7 @@ select * from SALGRADE;
 select distinct job from emp;
 select EMPNO as "Cislo", ENAME as "Zamestnanec", job as "Pozice", HIREDATE as "Datum nastupu" from emp;
 select ENAME ||', '|| job as "Zamestnanec, pozice" from emp;
+
 -- WHERE
 select column_name from user_tab_columns where table_name = 'EMP';
 select column_name || ' || '', '' || ' cmd from user_tab_columns where table_name = 'EMP';
@@ -31,15 +34,21 @@ select ename from EMP where ename like '__A%';
 select ename, deptno, mgr from emp where ename like '%LL%';
 select ename, job, sal from emp where job in ('CLERK', 'ANALYST') and sal between 1000 and 3000;
 select ename, sal, comm from emp where comm > sal*1.1;
+
 -- FUNKCE 
 select sysdate from dual;
 select empno, ename, sal, round(sal*1.15) as novy_plat from EMP;
 select empno, ename, sal, round(sal*1.15) as novy_plat from EMP;
-select empno, ename, sal, novy_plat, novy_plat-sal as pridano_o from (select empno, ename, sal, round(sal*1.15) as novy_plat from EMP);
+select empno, ename, sal, novy_plat, novy_plat-sal as pridano_o 
+from (select empno, ename, sal, round(sal*1.15) as novy_plat from EMP);
+
 select ename, job, hiredate from emp where hiredate between '20-02-81' and '01-06-81';
-select ename, hiredate from emp where hiredate like '%82';
+select ename, hiredate from emp 
+where hiredate between to_date('1-1-1982','DD-MM-YYYY') and to_date('31-12-1982','dd-mm-yyyy');
+
 select * from dual;
 alter session set nls_language = 'american';
+
 select ename, hiredate, to_char(next_day(add_months(hiredate,6),1), 'fmDAY, DD. MONTH YYYY') as review from emp;
 select ename || ' ma plat ' || to_char(sal, 'fm$9,999') || ', ale chtel by ' || to_char(sal*3, 'fm$9,999') as "Zamestnancuv sen" from EMP; 
 select ename, lpad(sal, 10,'*') as plat from emp;
@@ -52,7 +61,7 @@ select ename, job as pozice, decode(job,
   'MANAGER', 'B',
   'ANALYST', 'C',
   'SALESMAN', 'D',
-  'CLERK', 'E', 
+  'CLERK', 'E',
   'X') as stupen from emp;
   
 select ename, job as pozice, 
