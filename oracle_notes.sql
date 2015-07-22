@@ -64,16 +64,15 @@ select ename, job as pozice, decode(job,
   'CLERK', 'E',
   'X') as stupen from emp;
   
-select ename, job as pozice, 
-  case 
-    when job = 'ANALYST' then 'C'
-    when job = 'PRESIDENT' then 'A'
-    when job = 'CLERK' then 'E'
-    when job = 'SALESMAN' then 'D'
-    when job = 'MANAGER' then 'B'
-    else 'X'
-  end as stupen
-from emp;
+  select ename jmeno, job pozice, 
+    case 
+      when job = 'PRESIDENT' then 'A'
+      when job = 'MANAGER' then 'B'
+      when job = 'ANALYST' then 'C'
+      when job = 'SALESMAN' then 'D'
+    else 
+      'X' end as stupen
+    from emp; 
 
 -- JOIN 
 select ename, emp.deptno, dname from emp left join DEPT on emp.deptno = DEPT.DEPTNO;
