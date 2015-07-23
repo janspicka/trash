@@ -1,5 +1,8 @@
 set serveroutput on;
 
+create table employes2 
+as select * from employees;
+
 DECLARE
 -- GLOBAL
 v_result varchar2(100);
@@ -34,8 +37,8 @@ BEGIN
   
   -- WHILE
   i := 100;
-  while i < 150 loop
-     if i > 120 then 
+  while i < 110 loop
+     if i > 105 then 
       exit;
     end if;
     dbms_output.put_line(i);
@@ -43,7 +46,7 @@ BEGIN
   end loop;
   
   -- FOR
-  for id in 100..115 loop
+  for id in 100..105 loop
     select first_name, last_name into f_name, l_name from employees where employee_id = id;
     dbms_output.put_line(id || ' ' ||  f_name || ' ' || l_name);
   end loop;
