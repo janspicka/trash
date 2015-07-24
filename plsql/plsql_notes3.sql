@@ -76,5 +76,15 @@ for rec in (
   
 end loop;
 
+exception 
+when no_data_found then 
+  -- dbms_output.put_line('Zadny radek.');
+  dbms_output.put_line('ERR: ' || sqlcode || ' '|| sqlerrm);
+
+when too_many_rows then 
+    dbms_output.put_line('Moc radku.');
+when others then
+    dbms_output.put_line('ERR: ' || sqlcode || ' '|| sqlerrm);
+
 END;
 /
