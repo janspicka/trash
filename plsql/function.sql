@@ -13,3 +13,18 @@ BEGIN
      RETURN name;
 END get_name;
 /
+
+CREATE OR REPLACE FUNCTION get_yesterday
+      RETURN date
+IS
+BEGIN
+  RETURN (sysdate - 1);
+  
+exception
+  when others then 
+    dbms_output.put_line('Yesterday, all my troubles seemed so far away.');
+    dbms_output.put_line('Now it looks as thought they''re here to stay.');
+    dbms_output.put_line('Oh I believe in yesterday.');
+    dbms_output.put_line('...');
+END get_yesterday;
+/
