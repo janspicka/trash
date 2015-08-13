@@ -16,7 +16,7 @@ which showserver
 # pripojeni 
 cd $SYBASE
 cat interfaces
-isql -Usa -SLNX_ASE157 -w1000
+rlwrap isql -Usa -SLNX_ASE157 -w1000
 
 # nejake prikazy
 
@@ -24,4 +24,7 @@ select $$servername
 go 
 
 select * from master.dbo.sysdatabases
+go
+
+sp_who 
 go
