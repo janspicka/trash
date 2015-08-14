@@ -136,6 +136,45 @@ select * from sysobjects
 -- backup db
 dump database myDB to '/u01/app/sybase/SYB15.7_BS/data/dump/myDBdump01.dmp'
 
+-- its betteer to creatte raw tables without constrains and fill them with data.
+-- after that we can create constrains, becuse if we dont, the insert proscess is 
+-- threee times slower than usual because of created indexex
 
+select db_name()
+select user_name()
 
+SELECT * FROM master..syslogins ;
 
+SELECT * FROM myDB..sysusers;
+SELECT * FROM master..sysusers;
+
+--------------------------------
+----- Vytvoreni tabulek --------
+--------------------------------
+
+create table myDB.dbo.emp (
+empno numeric (10,0),
+ename varchar (50) NOT NULL,
+email varchar (30) UNIQUE,
+depno numeric (10,0)) lock datarows;
+
+alter table myDB.dbo.emp 
+add constraint emp_pk
+PRIMARY KEY (empno);
+
+create table myDB.dbo.dept (
+depno numeric (10,0) PRIMARY KEY,
+dname varchar (50) NOT NULL
+) lock datarows;
+
+ALTER TABLE myDB.dbo.emp 
+ADD FOREIGN KEY (depno) 
+REFERENCES dept(depno);
+
+select * from myDB.dbo.dept;
+
+sp_help dept;
+sp_help emp;
+sp_helpconstraint;
+
+insert 
