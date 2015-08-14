@@ -178,3 +178,6 @@ sp_help emp;
 sp_helpconstraint;
 
 insert 
+
+-- create temporary table 
+create table #xyz  (col varchar(10))
