@@ -19,21 +19,15 @@ cat interfaces
 rlwrap isql -Usa -SLNX_ASE157 -w1000
 
 # nejake prikazy
-
 select $$servername
-go 
-
 select * from master.dbo.sysdatabases
-go
-
 sp_who 
-go
+select * from syslogins;
+select * from master.dbo.sysdatabases;
+select db_name();
+select user_name();
+
+disk init name = 'my_evice1', physname='/u01/app/sybase/SYB15.7/data/my_device1.dbf', size = '10M'
 
 
-if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then                                                
-        eval "`dircolors -b`"                                                                              
-        alias ls='ls --color=auto'                                                                         
-        alias grep='grep --color=auto'                                                                     
-        fi                                                                                                           
-export PS1="\[\e[36;1m\]\u\[\e[34;1m\]@\[\e[32;1m\]\H\[\e[34;1m\]: \[\e[31;1m\]\W \[\e[0m\]"  
-alias fuck='sudo $(history -p \!\!)'
+
