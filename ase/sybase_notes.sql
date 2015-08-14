@@ -60,6 +60,19 @@ sp_helpdevice
 -- create database 
 create database myDB on my_device1 = '8M', my_device2='8M' log on my_device_log 
 
+-- show infor about databases
+select * from sysdatabases 
+sp_helpdb
 
+-- show logins 
+select * from syslogins
 
+-- if i want to execute any procedure in specific database
+myDB..sp_changedbowner martinLogin
 
+-- create table 
+create table myDB..t1 (s1 varchar(10))
+
+use myDB;
+
+sp_help 't1'
