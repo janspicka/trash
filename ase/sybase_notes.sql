@@ -133,7 +133,8 @@ create index i1 on  myDB.user2.t2(c2)
 
 select * from sysobjects
 
-
+-- backup db
+dump database myDB to '/u01/app/sybase/SYB15.7_BS/data/dump/myDBdump01.dmp'
 
 
 
